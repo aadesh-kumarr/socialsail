@@ -139,7 +139,7 @@ export function Platform({
                             initial="hidden"
                             whileInView="visible"
                             viewport={viewportConfig}
-                            className="absolute inset-0 h-full w-full rounded-full bg-gradient-to-r from-purple-400 via-sky-400 to-emerald-400"
+                            className="absolute inset-0 h-full w-full rounded-full bg-linear-to-r from-purple-400 via-sky-400 to-emerald-400"
                           />
                         </div>
                       )}
@@ -168,7 +168,7 @@ export function Platform({
 
               <CardContent className="p-0">
                 {/* Intelligent Insights Bar Chart Graphic with Growth Animation */}
-                <div className="mt-8 flex min-h-[92px] items-end justify-between rounded-xl bg-[#0b0f19] px-6 py-6">
+                <div className="mt-8 flex min-h-23 items-end justify-between rounded-xl bg-[#0b0f19] px-6 py-6">
                   {/* Ascending Metric Bars */}
                   <div className="flex items-end gap-2.5">
                     {BAR_HEIGHTS.map((bar, idx) => (

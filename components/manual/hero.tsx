@@ -8,7 +8,6 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { TbChartLine } from "react-icons/tb";
 import { siteConfig, type HeroConfig } from "@/config";
 import { animationVariants } from "@/animation-config";
 import { Button } from "@/components/ui/button";
@@ -47,7 +46,11 @@ const STAT_COLOR_STYLES = {
 
 const SPRING_CONFIG = { damping: 25, stiffness: 140, mass: 0.6 } as const;
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
+const CHART_LINE_PATH =
+  "M 10 110 L 48 85 L 82 98 L 122 60 L 158 78 L 198 42 L 235 54 L 275 22 L 315 36 L 355 5 L 390 18";
+
+const CHART_AREA_PATH =
+  "M 10 110 L 48 85 L 82 98 L 122 60 L 158 78 L 198 42 L 235 54 L 275 22 L 315 36 L 355 5 L 390 18 L 390 120 L 10 120 Z";
 
 export interface HeroProps {
   data?: HeroConfig;
@@ -115,7 +118,7 @@ export function Hero({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative bg-gradient-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32 mr-10",
+        "relative bg-linear-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32 mr-10",
         className
       )}
     >
@@ -131,7 +134,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={0}
-          className="h-[640px] w-[640px] rounded-full bg-purple-300/[0.18]"
+          className="h-160 w-160 rounded-full bg-purple-300/18"
           aria-hidden="true"
         />
       </motion.div>
@@ -148,7 +151,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={1}
-          className="h-[600px] w-[600px] rounded-full border border-white/[0.07] bg-white/[0.02]"
+          className="h-150 w-150 rounded-full border border-white/[0.07] bg-white/2"
           aria-hidden="true"
         />
       </motion.div>
@@ -268,7 +271,7 @@ export function Hero({
                   })}
                 </div>
 
-                {/* Animated Chart Section */}
+                {/* Animated Upward Trending Chart Section */}
                 <div className="mt-6 sm:mt-7">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xs font-semibold text-card-foreground">
@@ -285,59 +288,90 @@ export function Hero({
                     </motion.span>
                   </div>
 
-                  {/* Chart Visual with Reveal Draw and Scanning Light Beam */}
-                  <div className="relative mt-3 overflow-hidden rounded-xl bg-brand/5 border border-brand/10 p-3 pt-4">
-                    {/* Glowing light beam sweep across the chart */}
-                    <motion.div
-                      animate={{ x: ["-100%", "300%"] }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 4,
-                        ease: "easeInOut",
-                        repeatDelay: 1.5,
-                      }}
-                      className="pointer-events-none absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-brand/15 to-transparent blur-md"
-                      aria-hidden="true"
-                    />
-
-                    {/* Chart Line Drawing Animation */}
-                    <motion.div
-                      initial={{ clipPath: "inset(0 100% 0 0)" }}
-                      animate={{ clipPath: "inset(0 0% 0 0)" }}
-                      transition={{
-                        duration: 1.6,
-                        ease: [0.16, 1, 0.3, 1],
-                        delay: 0.3,
-                      }}
-                      className="relative flex h-24 w-full items-center justify-center"
+                  {/* Upward Stair-Stepped Chart Line Canvas */}
+                  <div className="relative mt-2 w-full pt-2">
+                    <svg
+                      viewBox="0 0 400 130"
+                      className="h-28 sm:h-32 w-full overflow-visible"
                     >
-                      <TbChartLine className="h-full w-full text-brand drop-shadow-sm" strokeWidth={1.8} />
-
-                      {/* Peak Glowing Data Point Indicator */}
-                      <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 1.4, duration: 0.5, ease: "backOut" }}
-                        className="absolute top-2 right-1/4 flex items-center justify-center"
-                      >
-                        <span className="absolute h-4 w-4 rounded-full bg-brand/30 animate-ping" />
-                        <span className="h-2 w-2 rounded-full bg-brand ring-2 ring-white shadow-sm" />
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Days of Week Axis */}
-                    <div className="mt-2 flex justify-between border-t border-border/50 pt-1.5 text-[10px] text-muted-foreground/70">
-                      {DAYS.map((day, idx) => (
-                        <motion.span
-                          key={day}
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.4 + idx * 0.08, duration: 0.4 }}
+                      <defs>
+                        {/* Gradient for area fill under the line */}
+                        <linearGradient
+                          id="chartAreaGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
                         >
-                          {day}
-                        </motion.span>
-                      ))}
-                    </div>
+                          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.22" />
+                          <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.0" />
+                        </linearGradient>
+
+                        {/* Gradient for the line stroke */}
+                        <linearGradient
+                          id="chartLineStroke"
+                          x1="0"
+                          y1="0"
+                          x2="1"
+                          y2="0"
+                        >
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="70%" stopColor="#7c3aed" />
+                          <stop offset="100%" stopColor="#6d28d9" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Baseline horizontal line */}
+                      <line
+                        x1="0"
+                        y1="120"
+                        x2="400"
+                        y2="120"
+                        stroke="currentColor"
+                        strokeOpacity="0.12"
+                        strokeWidth="1"
+                      />
+
+                      {/* Area Fill under curve */}
+                      <motion.path
+                        d={CHART_AREA_PATH}
+                        fill="url(#chartAreaGradient)"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.4, delay: 0.5 }}
+                      />
+
+                      {/* Animated Upward Zigzag Line Path */}
+                      <motion.path
+                        d={CHART_LINE_PATH}
+                        fill="none"
+                        stroke="url(#chartLineStroke)"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{
+                          duration: 1.8,
+                          ease: [0.16, 1, 0.3, 1],
+                          delay: 0.25,
+                        }}
+                      />
+
+                      {/* Highest Peak Pulsing Radar Dot at (355, 5) */}
+                      <g transform="translate(355, 5)">
+                        <circle
+                          r="6"
+                          className="fill-purple-500/40 animate-ping"
+                        />
+                        <circle
+                          r="3.5"
+                          fill="#7c3aed"
+                          stroke="#ffffff"
+                          strokeWidth="1.5"
+                        />
+                      </g>
+                    </svg>
                   </div>
                 </div>
               </CardContent>
