@@ -10,7 +10,7 @@ A modern, high-performance SaaS landing page built with **Next.js 16 (App Router
 - **Centralized Motion Engine (`animation-config.ts`)**: Standardized physics, easing curves (`[0.16, 1, 0.3, 1]`), and reusable variants across all sections.
 - **Clean Architecture & SOLID Principles**: Pure presentation components with decoupled math, parsers, and mouse utilities isolated in `lib/utils.ts`.
 - **shadcn UI & Global Color Tokens**: Strictly built with `@base-ui/react` primitives and semantic OKLCH color variables (zero hardcoded ad-hoc colors, zero inline SVGs).
-- **Preserved Desktop Margin & Interactive Toggle**: Custom desktop right margin (`md:mr-10`) is preserved, and clicking **"Book a Demo"** dynamically toggles the full-width view in real-time.
+- **Fully Responsive & Accessible**: Pixel-perfect layout optimization across mobile, tablet, and desktop viewports.
 
 ---
 
