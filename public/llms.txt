@@ -1,0 +1,32 @@
+# NexaFlow
+
+> NexaFlow is an AI-powered operations platform connecting teams, data, and workflows so modern organizations can move faster with less friction.
+
+## Core Capabilities
+- **Workflow Automation**: Build repeatable workflows with intelligent triggers, conditions, and actions without rebuilding legacy tech stacks.
+- **Intelligent Insights**: Convert real-time operational data into clear, actionable dashboards.
+- **Unified Source of Truth**: Eliminate manual data handoffs and fragmented tools across engineering, product, and operations teams.
+
+## Platform Sections & Architecture
+- **Hero**: AI-Powered operations overview featuring dynamic stats (128 active workflows, 42% time saved, 3.8k tasks automated) and live weekly activity monitoring.
+- **Trusted By**: Trusted by modern enterprise teams including Vertex, Northstar, Axiom, Motion, and Lumen.
+- **Why NexaFlow**: Three-pillar foundation:
+  1. *Connect your tools*: Seamless integration with existing tech stacks.
+  2. *Automate repetitive work*: Replace manual handoffs with automated intelligence.
+  3. *Measure what matters*: Centralized operational metrics and bottleneck identification.
+- **The Platform**: Modular workflow orchestration engine and real-time efficiency dashboards (+28% efficiency boost).
+- **Customer Story**: Verified case study with Northstar COO Sarah Chen demonstrating a 41% reduction in manual processes.
+- **Call to Action**: Direct scheduling for customized live product demonstrations.
+
+## Technical Specifications
+- **Framework**: Next.js 16 (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS v4, shadcn UI components, semantic theme variables
+- **Motion**: Framer Motion with hardware-accelerated spring physics and directional micro-interactions
+- **API & Configuration**: Centralized type-safe content management via `config.ts` and `animation-config.ts`
+
+## Key URLs
+- Homepage: https://nexaflow.io
+- Platform Overview: https://nexaflow.io/#platform
+- Solutions: https://nexaflow.io/#solutions
+- Resources & Documentation: https://nexaflow.io/#resources
+- Book a Demo: https://nexaflow.io/#book-a-demo
