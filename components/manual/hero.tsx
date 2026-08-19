@@ -118,7 +118,7 @@ export function Hero({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative bg-gradient-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32",
+        "relative bg-linear-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32",
         className
       )}
     >
@@ -134,7 +134,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={0}
-          className="h-[640px] w-[640px] rounded-full bg-purple-300/[0.18]"
+          className="h-96 md:h-160 w-96 md:w-160 rounded-full bg-purple-300/18"
           aria-hidden="true"
         />
       </motion.div>
@@ -151,7 +151,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={1}
-          className="h-[600px] w-[600px] rounded-full border border-white/[0.07] bg-white/[0.02]"
+          className="h-96  w-96  rounded-full border border-white/[0.07] bg-white/2"
           aria-hidden="true"
         />
       </motion.div>

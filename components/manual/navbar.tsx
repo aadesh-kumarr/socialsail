@@ -42,7 +42,7 @@ export function Navbar({
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
           {/* Logo / Brand Name */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link
               href={brandHref}
               className="font-sans text-xl font-extrabold tracking-tight text-foreground transition-opacity hover:opacity-90 sm:text-2xl"

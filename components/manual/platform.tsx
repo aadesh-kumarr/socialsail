@@ -16,10 +16,10 @@ import {
 import { cn } from "@/lib/utils";
 
 const BAR_HEIGHTS = [
-  { height: "h-9", color: "bg-purple-600" },
-  { height: "h-13", color: "bg-purple-500" },
-  { height: "h-18", color: "bg-purple-400" },
-  { height: "h-24", color: "bg-purple-300" },
+  { height: "h-10", color: "bg-purple-600" },
+  { height: "h-14", color: "bg-purple-500" },
+  { height: "h-20", color: "bg-purple-400" },
+  { height: "h-26", color: "bg-purple-300" },
 ] as const;
 
 const TIMELINE_STEPS = [
@@ -49,32 +49,28 @@ export function Platform({
           whileInView="visible"
           viewport={viewportConfig}
           variants={animationVariants.fadeInUp}
-          className="max-w-3xl"
+          className="mx-auto max-w-3xl text-center"
         >
           {badge && (
-            <Badge variant="eyebrow" className="mb-3">
+            <Badge variant="brand" className="mb-4">
               {badge}
             </Badge>
           )}
-
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl font-sans">
             {title}
           </h2>
-
-          {description && (
-            <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
-              {description}
-            </p>
-          )}
+          <p className="mt-4 text-base text-white/70 sm:text-lg font-sans">
+            {description}
+          </p>
         </motion.div>
 
-        {/* 2 Platform Cards with Staggered Entrance */}
+        {/* 2-Column Feature Cards Grid */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
           variants={animationVariants.staggerContainer}
-          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 sm:mt-16"
+          className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-10"
         >
           {/* Card 1: Workflow Automation */}
           <motion.div
@@ -84,17 +80,17 @@ export function Platform({
           >
             <Card variant="dark" padding="lg" className="h-full justify-between">
               <CardHeader className="p-0 gap-0">
-                <CardTitle className="text-xl font-bold text-white sm:text-2xl">
+                <CardTitle className="text-xl font-bold text-white sm:text-2xl font-sans">
                   {cards.workflow.title}
                 </CardTitle>
-                <CardDescription className="mt-3 text-sm text-white/60 sm:text-base">
+                <CardDescription className="mt-3 text-sm text-white/60 sm:text-base font-sans">
                   {cards.workflow.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="p-0">
                 {/* Workflow Timeline Pipeline Graphic with Sequential Flow Animations */}
-                <div className="mt-8 flex items-center justify-between rounded-xl bg-[#0b0f19] px-6 py-7">
+                <div className="mt-8 flex items-center justify-between rounded-xl bg-[#0b0f19] px-6 py-8">
                   {TIMELINE_STEPS.map((step, idx) => (
                     <React.Fragment key={idx}>
                       {/* Timeline Node */}
@@ -158,19 +154,19 @@ export function Platform({
           >
             <Card variant="dark" padding="lg" className="h-full justify-between">
               <CardHeader className="p-0 gap-0">
-                <CardTitle className="text-xl font-bold text-white sm:text-2xl">
+                <CardTitle className="text-xl font-bold text-white sm:text-2xl font-sans">
                   {cards.insights.title}
                 </CardTitle>
-                <CardDescription className="mt-3 text-sm text-white/60 sm:text-base">
+                <CardDescription className="mt-3 text-sm text-white/60 sm:text-base font-sans">
                   {cards.insights.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="p-0">
-                {/* Intelligent Insights Bar Chart Graphic with Growth Animation */}
-                <div className="mt-8 flex min-h-23 items-end justify-between rounded-xl bg-[#0b0f19] px-6 py-6">
+                {/* Intelligent Insights Bar Chart Graphic with Growth Animation & Clean Spacing */}
+                <div className="mt-8 flex min-h-35 items-end justify-between rounded-xl bg-[#0b0f19] px-6 py-6 sm:px-8">
                   {/* Ascending Metric Bars */}
-                  <div className="flex items-end gap-2.5">
+                  <div className="flex items-end gap-3 sm:gap-3.5 shrink-0">
                     {BAR_HEIGHTS.map((bar, idx) => (
                       <motion.span
                         key={idx}
@@ -179,18 +175,23 @@ export function Platform({
                         initial="hidden"
                         whileInView="visible"
                         viewport={viewportConfig}
-                        className={cn("w-4 rounded-sm sm:w-5", bar.height, bar.color)}
+                        className={cn("w-4 rounded-full sm:w-5", bar.height, bar.color)}
                       />
                     ))}
                   </div>
 
-                  {/* Efficiency Stat Text with Counter Animation */}
-                  <motion.span
+                  {/* Efficiency Stat Text with Clean Right Alignment */}
+                  <motion.div
                     variants={animationVariants.fadeIn}
-                    className="text-xs font-semibold text-white/80 sm:text-sm"
+                    className="flex flex-col items-end text-right pl-4 shrink-0"
                   >
-                    <Counter value={cards.insights.efficiencyText} />
-                  </motion.span>
+                    <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white font-sans">
+                      <Counter value="+28%" />
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-white/60 font-sans">
+                      efficiency
+                    </span>
+                  </motion.div>
                 </div>
               </CardContent>
             </Card>
