@@ -134,7 +134,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={0}
-          className="h-44 md:h-160 w-44 md:w-160 rounded-full bg-purple-300/18"
+          className="h-72 md:h-160 w-72 md:w-160 rounded-full bg-purple-300/18"
           aria-hidden="true"
         />
       </motion.div>
