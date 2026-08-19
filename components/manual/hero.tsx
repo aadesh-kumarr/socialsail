@@ -28,19 +28,19 @@ import {
 
 const STAT_COLOR_STYLES = {
   purple: {
-    bg: "bg-brand/10",
-    label: "text-brand",
-    value: "text-brand",
+    bg: "bg-purple-500/[0.08] border-purple-500/10",
+    label: "text-purple-600 dark:text-purple-400",
+    value: "text-purple-700 dark:text-purple-300",
   },
   blue: {
-    bg: "bg-sky-500/10",
+    bg: "bg-sky-500/[0.08] border-sky-500/10",
     label: "text-sky-600 dark:text-sky-400",
-    value: "text-sky-600 dark:text-sky-400",
+    value: "text-sky-700 dark:text-sky-300",
   },
   green: {
-    bg: "bg-emerald-500/10",
-    label: "text-emerald-600 dark:text-emerald-400",
-    value: "text-emerald-600 dark:text-emerald-400",
+    bg: "bg-emerald-500/[0.08] border-emerald-500/10",
+    label: "text-emerald-700 dark:text-emerald-400",
+    value: "text-emerald-800 dark:text-emerald-300",
   },
 } as const;
 
@@ -118,7 +118,7 @@ export function Hero({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative bg-linear-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32 ",
+        "relative bg-gradient-to-br from-[#121330] via-[#1d194c] to-[#601fb5] py-20 text-white sm:py-24 lg:py-32",
         className
       )}
     >
@@ -134,7 +134,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={0}
-          className="h-160 w-160 rounded-full bg-purple-300/18"
+          className="h-[640px] w-[640px] rounded-full bg-purple-300/[0.18]"
           aria-hidden="true"
         />
       </motion.div>
@@ -151,7 +151,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={1}
-          className="h-150 w-150 rounded-full border border-white/[0.07] bg-white/2"
+          className="h-[600px] w-[600px] rounded-full border border-white/[0.07] bg-white/[0.02]"
           aria-hidden="true"
         />
       </motion.div>
@@ -180,7 +180,7 @@ export function Hero({
             <motion.h1
               variants={animationVariants.heroSlideUp}
               custom={1}
-              className="text-4xl font-extrabold tracking-tight text-white leading-[1.12] sm:text-5xl lg:text-6xl"
+              className="text-4xl font-extrabold tracking-tight text-white leading-[1.12] sm:text-5xl lg:text-6xl font-sans"
             >
               {title}
             </motion.h1>
@@ -189,7 +189,7 @@ export function Hero({
             <motion.p
               variants={animationVariants.heroSlideUp}
               custom={2}
-              className="mt-6 max-w-lg text-base leading-relaxed text-purple-100/75 sm:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-purple-100/75 sm:text-lg font-sans"
             >
               {description}
             </motion.p>
@@ -240,16 +240,16 @@ export function Hero({
               <CardContent className="p-6 sm:p-7 text-card-foreground">
                 {/* Header Title & Date */}
                 <CardHeader className="p-0 gap-0">
-                  <CardTitle className="text-base font-bold sm:text-lg">
+                  <CardTitle className="text-base font-bold sm:text-lg font-sans">
                     {dashboard.title}
                   </CardTitle>
-                  <CardDescription className="mt-0.5 text-xs">
+                  <CardDescription className="mt-0.5 text-xs font-sans">
                     {dashboard.date}
                   </CardDescription>
                 </CardHeader>
 
-                {/* 3 Metric Cards */}
-                <div className="mt-6 grid grid-cols-3 gap-2.5 sm:gap-3">
+                {/* 3 Metric Cards with Clean Spacing & Sans Typography */}
+                <div className="mt-6 grid grid-cols-3 gap-2.5 sm:gap-3.5">
                   {dashboard.stats.map((stat, idx) => {
                     const style =
                       STAT_COLOR_STYLES[stat.colorScheme] ||
@@ -258,12 +258,12 @@ export function Hero({
                       <Card
                         key={idx}
                         variant="metric"
-                        className={style.bg}
+                        className={cn(style.bg, "rounded-2xl p-3.5 sm:p-4 border")}
                       >
-                        <p className={`text-[11px] font-medium leading-tight sm:text-xs ${style.label}`}>
+                        <p className={cn("text-[11px] sm:text-xs font-semibold leading-tight tracking-normal font-sans", style.label)}>
                           {stat.label}
                         </p>
-                        <p className={`mt-1.5 text-xl font-bold tracking-tight sm:text-2xl ${style.value}`}>
+                        <p className={cn("mt-2 text-xl sm:text-2xl font-extrabold tracking-tight font-sans", style.value)}>
                           <Counter value={stat.value} />
                         </p>
                       </Card>
@@ -274,14 +274,14 @@ export function Hero({
                 {/* Animated Upward Trending Chart Section */}
                 <div className="mt-6 sm:mt-7">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-semibold text-card-foreground">
+                    <h3 className="text-xs font-semibold text-card-foreground font-sans">
                       {dashboard.chartTitle}
                     </h3>
                     <motion.span
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.8, duration: 0.5 }}
-                      className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400"
+                      className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 font-sans"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       Live

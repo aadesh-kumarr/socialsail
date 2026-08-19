@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 import { siteConfig, type NavItem } from "@/config";
@@ -42,7 +42,7 @@ export function Navbar({
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
           {/* Logo / Brand Name */}
-          <div className="shrink-0">
+          <div className="flex-shrink-0">
             <Link
               href={brandHref}
               className="font-sans text-xl font-extrabold tracking-tight text-foreground transition-opacity hover:opacity-90 sm:text-2xl"
@@ -144,62 +144,78 @@ export function Navbar({
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="relative z-20 space-y-4 border-t border-border bg-background/95 px-6 pt-4 pb-6 shadow-lg backdrop-blur-lg md:hidden">
-          <nav className="flex flex-col space-y-2">
-            {navItems.map((item) => {
-              const isActive = activeItem === item.label;
+      {/* Mobile Menu Dropdown with Zero-Jitter Inner Padding Wrap */}
+      <AnimatePresence initial={false}>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+            className="relative z-20 overflow-hidden border-t border-border bg-background/95 shadow-lg backdrop-blur-lg md:hidden"
+          >
+            <div className="space-y-4 px-6 pt-4 pb-6">
+              <nav className="flex flex-col space-y-2">
+                {navItems.map((item, idx) => {
+                  const isActive = activeItem === item.label;
 
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => {
-                    setActiveItem(item.label);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-center justify-between rounded-lg px-3 py-2 text-base font-medium transition-colors",
-                    isActive
-                      ? "bg-brand/10 text-brand font-semibold"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  {isActive && <span className="h-1.5 w-1.5 rounded-full bg-brand" />}
-                </Link>
-              );
-            })}
-          </nav>
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.03, duration: 0.2 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          setActiveItem(item.label);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={cn(
+                          "flex items-center justify-between rounded-lg px-3 py-2 text-base font-medium transition-colors",
+                          isActive
+                            ? "bg-brand/10 text-brand font-semibold"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        {isActive && <span className="h-1.5 w-1.5 rounded-full bg-brand" />}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
 
-          <div className="pt-2">
-            {onCtaClick ? (
-              <Button
-                variant="default"
-                size="pill"
-                className="w-full"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onCtaClick();
-                }}
-              >
-                {ctaLabel}
-              </Button>
-            ) : (
-              <Link
-                href={ctaHref}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full"
-              >
-                <Button variant="default" size="pill" className="w-full">
-                  {ctaLabel}
-                </Button>
-              </Link>
-            )}
-          </div>
-        </div>
-      )}
+              <div className="pt-2">
+                {onCtaClick ? (
+                  <Button
+                    variant="default"
+                    size="pill"
+                    className="w-full"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onCtaClick();
+                    }}
+                  >
+                    {ctaLabel}
+                  </Button>
+                ) : (
+                  <Link
+                    href={ctaHref}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full"
+                  >
+                    <Button variant="default" size="pill" className="w-full">
+                      {ctaLabel}
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

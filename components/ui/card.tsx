@@ -17,7 +17,7 @@ const cardVariants = cva(
         dashboard:
           "rounded-2xl sm:rounded-3xl border border-white/20 bg-card text-card-foreground shadow-2xl overflow-hidden",
         metric:
-          "rounded-xl p-3 sm:p-3.5 border border-transparent transition-all",
+          "rounded-2xl p-3.5 sm:p-4 border border-transparent transition-all flex flex-col justify-center",
       },
       padding: {
         none: "p-0",
