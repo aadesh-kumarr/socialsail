@@ -125,7 +125,7 @@ export function Hero({
       {/* 1. Top-Right Circle: Zoom Entrance + Mouse Parallax + Scroll Swap to Left */}
       <motion.div
         style={{ x: scrollRightX, y: scrollRightY }}
-        className="pointer-events-none absolute top-0 -right-12 sm:-right-16 z-0 -translate-y-1/3"
+        className="pointer-events-none absolute  top-0 -right-12 sm:-right-16 z-0 -translate-y-1/3"
       >
         <motion.div
           style={{ x: mouseRightX, y: mouseRightY }}
@@ -134,7 +134,7 @@ export function Hero({
           animate="visible"
           exit="exit"
           custom={0}
-          className="h-96 md:h-160 w-96 md:w-160 rounded-full bg-purple-300/18"
+          className="h-44 md:h-160 w-44 md:w-160 rounded-full bg-purple-300/18"
           aria-hidden="true"
         />
       </motion.div>

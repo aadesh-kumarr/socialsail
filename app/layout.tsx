@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-x-clip relative bg-background text-foreground antialiased">
+      <body className="min-h-full flex flex-col overflow-x-hidden relative bg-background text-foreground antialiased">
         <Navbar />
         {children}
       </body>
